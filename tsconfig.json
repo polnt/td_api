@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "lib": ["es2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    },
+    "types": [
+      "node",
+      "express",
+    ],
+    "typeRoots": [
+      "./custom_typings/express",
+      "./node_modules/@types"
+    ],
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "src/**/*",
+    "tsconfig-paths.js"
+  ],
+  "exclude": [
+    "tests",
+    "coverage",
+    "node_modules"
+  ]
+}

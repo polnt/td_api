@@ -1,0 +1,20 @@
+version: "1.0"
+
+services:
+  # mysql:
+  #   hostname: mysql
+  #   image: mysql:latest
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=test
+  #   ports:
+  #     - "3001:3001"
+  #   restart: unless-stopped
+
+  api:
+    build: .
+    hostname: api
+    container_name: api
+    command: yarn dev;
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
