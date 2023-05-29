@@ -4,7 +4,9 @@ COPY . /home
 
 WORKDIR /home
 
-RUN apk add bash && \
-  yarn install
+RUN apk add bash \
+    && yarn
 
 EXPOSE 3000
+
+USER node

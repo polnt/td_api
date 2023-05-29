@@ -1,9 +1,5 @@
 .env
 
-# Dependency directories
-node_modules/
-jspm_packages/
-
 # Yarn PnP
 .yarn/*
 !.yarn/patches
@@ -12,6 +8,10 @@ jspm_packages/
 !.yarn/sdks
 !.yarn/versions
 !.yarn/cache
+
+# Dependency directories
+node_modules/
+jspm_packages/
 
 # macOS
 .DS_Store
