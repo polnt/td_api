@@ -6,8 +6,6 @@
   "eslint.nodePath": ".yarn/sdks",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "prettier.singleQuote": true,
-  "prettier.jsxSingleQuote": true,
   "prettier.configPath": ".prettierrc.json",
   "prettier.prettierPath": "./**/node_modules/prettier/",
   "prettier.useEditorConfig": false
