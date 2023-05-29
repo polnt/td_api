@@ -1,14 +1,20 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+!.yarn/unplugged
+!.yarn/unplugged/**/node_modules
 
 # Swap the comments on the following lines if you don't wish to use zero-installs
 # Documentation here: https://yarnpkg.com/features/zero-installs
-# !.yarn/cache
-.pnp.*
+!.yarn/cache
+# .pnp.*
 
 # macOS
 .DS_Store
@@ -21,10 +27,6 @@ dist
 
 # Optional eslint cache
 .eslintcache
-
-# Dependency directories
-node_modules/
-jspm_packages/
 
 # Typescript v1 declaration files
 typings/

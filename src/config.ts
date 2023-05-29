@@ -18,8 +18,8 @@ interface iAppConfig {
 
 const appConfig: iAppConfig = {
   app: {
-    url: process.env.MYSQL_HOST || 'localhost',
-    port: Number(process.env.PORT) || 3000,
+    url: process.env.API_HOST || 'localhost',
+    port: Number(process.env.API_PORT) || 3000,
     production: false,
     secret: process.env.SECRET_KEY_JWT || '$3cr37',
     expiresIn: '24h',
