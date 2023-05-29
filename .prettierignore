@@ -1,5 +1,9 @@
+node_modules/
 .DS_Store
 .git
+.github/
+.gitattributes
+.gitignore
 .husky
 coverage
 dist

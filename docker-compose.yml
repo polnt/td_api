@@ -12,9 +12,9 @@ services:
 
   api:
     build: .
-    hostname: api
+    hostname: td_api
     container_name: api
-    command: yarn dev;
+    command: yarn start;
     ports:
       - "3000:3000"
     restart: unless-stopped

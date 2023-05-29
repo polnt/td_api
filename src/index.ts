@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 // import path from 'path';
-import { appConfig } from '@/config';
+import { appConfig } from 'app/config';
 
 import cors from 'cors';
 // import { router } from "./router";

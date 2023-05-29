@@ -1,5 +1,5 @@
 {
-  "name": "td_api",
+  "name": "app",
   "packageManager": "yarn@3.5.1",
   "version": "1.0.0",
   "description": "Simple Express API using docker",
@@ -10,12 +10,14 @@
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable",
+    "start": "node -r ./tsconfig-paths.js ./dist/src/index.js",
     "dev": "nodemon",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "ci": "yarn lint && yarn build"
   },
   "dependencies": {
+    "app": "link:./src",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
