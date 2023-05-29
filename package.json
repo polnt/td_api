@@ -7,11 +7,13 @@
   "author": "Pol Casabayo",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon",
-    "lint": "eslint \"{src,tests}/**/*.ts\"",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
-    "postpack": "pinst --enable"
+    "postpack": "pinst --enable",
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "eslint \"{src,tests}/**/*.ts\"",
+    "ci": "yarn lint && yarn build"
   },
   "dependencies": {
     "cors": "^2.8.5",
