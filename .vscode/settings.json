@@ -7,6 +7,6 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "prettier.configPath": ".prettierrc.json",
-  "prettier.prettierPath": "./**/node_modules/prettier/",
+  "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
   "prettier.useEditorConfig": false
 }
