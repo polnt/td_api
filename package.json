@@ -7,7 +7,7 @@
   "author": "Pol Casabayo",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --use-strict",
+    "dev": "nodemon",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "postinstall": "husky install",
     "prepack": "pinst --disable",

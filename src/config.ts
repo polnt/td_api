@@ -8,20 +8,20 @@ interface iAppConfig {
     secret: string;
     expiresIn: string;
   };
-  mysql: {
-    host: string;
-    user: string;
-    password: string;
-    database: string;
-  };
+  // mysql: {
+  //   host: string;
+  //   user: string;
+  //   password: string;
+  //   database: string;
+  // };
 }
 
 const appConfig: iAppConfig = {
   app: {
-    url: process.env.MYSQL_HOST,
-    port: +process.env.MYSQL_PORT,
+    url: process.env.MYSQL_HOST || 'localhost',
+    port: Number(process.env.PORT) || 3000,
     production: false,
-    secret: process.env.SECRET_KEY_JWT,
+    secret: process.env.SECRET_KEY_JWT || '$3cr37',
     expiresIn: '24h',
     // https: {
     //   port: 8443,
@@ -31,12 +31,12 @@ const appConfig: iAppConfig = {
     //   },
     // },
   },
-  mysql: {
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE,
-  },
+  // mysql: {
+  //   host: process.env.MYSQL_HOST,
+  //   user: process.env.MYSQL_USER,
+  //   password: process.env.MYSQL_PASSWORD,
+  //   database: process.env.MYSQL_DATABASE,
+  // },
 };
 
 export { appConfig, iAppConfig };
