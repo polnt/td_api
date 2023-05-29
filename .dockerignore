@@ -3,7 +3,7 @@
 .husky
 coverage
 dist
-node_modules
+node_modules/
 
 .yarn/*
 !.yarn/patches
@@ -11,5 +11,8 @@ node_modules
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.pnp.*
+!.yarn/cache
+!.yarn/unplugged
+!.yarn/unplugged/**/node_modules
+
 .env
