@@ -8,12 +8,12 @@ interface iAppConfig {
     secret: string;
     expiresIn: string;
   };
-  // mysql: {
-  //   host: string;
-  //   user: string;
-  //   password: string;
-  //   database: string;
-  // };
+  mysql: {
+    host: string;
+    user: string;
+    password: string;
+    database: string;
+  };
 }
 
 const appConfig: iAppConfig = {
@@ -31,12 +31,12 @@ const appConfig: iAppConfig = {
     //   },
     // },
   },
-  // mysql: {
-  //   host: process.env.MYSQL_HOST,
-  //   user: process.env.MYSQL_USER,
-  //   password: process.env.MYSQL_PASSWORD,
-  //   database: process.env.MYSQL_DATABASE,
-  // },
+  mysql: {
+    host: process.env.MYSQL_HOST || 'localhost',
+    user: process.env.MYSQL_USER || '',
+    password: process.env.MYSQL_PASSWORD || '',
+    database: process.env.MYSQL_DATABASE || 'td_api',
+  },
 };
 
 export { appConfig, iAppConfig };
