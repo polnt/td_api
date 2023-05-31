@@ -5,7 +5,7 @@ COPY . /home
 WORKDIR /home
 
 RUN apk add bash \
-    && yarn --immutable \
+    && yarn \
     && yarn ci
 
 EXPOSE 3000

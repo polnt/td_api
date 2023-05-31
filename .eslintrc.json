@@ -3,11 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "google"
-  ],
+  "extends": ["google"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -15,10 +11,31 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "max-len": [
+      "error",
+      120,
+      4,
+      {
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignorePattern": "^\\s*var\\s.+=\\s*(require\\s*\\()|(/)"
+      }
+    ],
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
-    "indent": ["error", 2],
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
     "comma-dangle": ["error", "only-multiline"],
-    "operator-linebreak": ["error", "before"]
+    "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
+    "new-cap": ["error", { "capIsNewExceptions": ["Router"] }],
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "Express|Request",
+        "vars": "all",
+        "args": "none",
+        "ignoreRestSiblings": true
+      }
+    ]
   }
 }

@@ -1,11 +1,16 @@
 import { injectable } from 'inversify';
-import mysql from 'mysql2/promise';
+import mysql, {
+  OkPacket,
+  ResultSetHeader,
+  RowDataPacket,
+} from 'mysql2/promise';
 import { appConfig } from 'app/config';
-import { readdir, readFile } from 'app/utils';
+import { readFileAsync } from 'app/utils';
 
 @injectable()
 export class MySQLClient {
-  private readonly hydratationTablesPath: string = 'src/db/mysql/tables';
+  private readonly hydratationTablesPath: string =
+    'src/db/mysql/tables/mysql_schema.sql';
   private pool: mysql.Pool | undefined = undefined;
 
   private async checkConnection(): Promise<void> {
@@ -20,15 +25,10 @@ export class MySQLClient {
       `CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`
     );
     await connection.query(`use ${appConfig.mysql.database};`);
-    const tables: string[] = await readdir(this.hydratationTablesPath);
-    const thenables = tables.map(async (table) => {
-      const tmp = await readFile(`${this.hydratationTablesPath}/${table}`);
-      await connection.query(tmp.toString('utf-8')).catch((err) => {
-        throw err;
-      });
+    const tables: Buffer = await readFileAsync(this.hydratationTablesPath);
+    await connection.query(tables.toString('utf-8')).catch((err) => {
+      throw err;
     });
-
-    await Promise.all(thenables);
     connection.release();
   }
 
@@ -65,5 +65,24 @@ export class MySQLClient {
       );
     }
     return this.pool.getConnection();
+  }
+
+  public processRows(
+    rows:
+    | RowDataPacket[]
+    | RowDataPacket[][]
+    | OkPacket
+    | OkPacket[]
+    | ResultSetHeader
+  ): any[] {
+    const filteredRows = [rows]
+      .map((row) =>
+        JSON.parse(JSON.stringify(row)).length ? { ...row } : undefined
+      )
+      .filter((elem) => elem !== undefined);
+
+    return filteredRows.length
+      ? filteredRows.map((elem) => (<any>Object).values(elem))[0]
+      : [];
   }
 }

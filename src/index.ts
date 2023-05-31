@@ -1,17 +1,23 @@
 import express, { Express } from 'express';
-// import path from 'path';
+import YAML from 'yaml';
+import { readFileSync } from 'app/utils/fs';
+import path from 'path';
 import { appConfig } from 'app/config';
 
 import cors from 'cors';
-// import { router } from "./router";
+import { router } from './router';
 
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from '../swagger.json';
+// import ymlDoc from '../db.yml';
+// import swaggerDocument from '../swagger.json';
 
 const app: Express = express();
 const port = appConfig.app.port;
+const docPath = path.resolve(__dirname, './db/mysql/doc/db.yml');
+const file = readFileSync(docPath, 'utf-8');
+const swaggerDocument = YAML.parse(file);
 
-function main() {
+async function main() {
   app.use(cors());
 
   app.options('*', cors());
@@ -20,7 +26,7 @@ function main() {
   // app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-  // app.use("/api", await router());
+  app.use('/api', await router());
 
   app.get('/', (_, res) => {
     res.send('<h1>EZ PZ LZ</h1>');
