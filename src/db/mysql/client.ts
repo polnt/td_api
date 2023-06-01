@@ -9,7 +9,7 @@ import { readFileAsync } from 'app/utils';
 
 @injectable()
 export class MySQLClient {
-  private readonly hydratationTablesPath: string =
+  private readonly hydrationTablesPath: string =
     'src/db/mysql/tables/mysql_schema.sql';
   private pool: mysql.Pool | undefined = undefined;
 
@@ -25,7 +25,7 @@ export class MySQLClient {
       `CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`
     );
     await connection.query(`use ${appConfig.mysql.database};`);
-    const tables: Buffer = await readFileAsync(this.hydratationTablesPath);
+    const tables: Buffer = await readFileAsync(this.hydrationTablesPath);
     await connection.query(tables.toString('utf-8')).catch((err) => {
       throw err;
     });
