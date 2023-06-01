@@ -1,8 +1,19 @@
 import { NextFunction, Request, Response } from 'express';
 
-import { UnauthorizedError, NotFoundError, ForbiddenError, ConflictError, UnsupportedMediaTypeError } from 'app/utils';
+import {
+  UnauthorizedError,
+  NotFoundError,
+  ForbiddenError,
+  ConflictError,
+  UnsupportedMediaTypeError,
+} from 'app/utils';
 
-export const exceptionsFilter = (err: Error, _: Request, response: Response, next: NextFunction) => {
+export const exceptionsFilter = (
+  err: Error,
+  _: Request,
+  response: Response,
+  next: NextFunction
+) => {
   let message = 'internal server error';
   let status = 500;
 

@@ -9,7 +9,7 @@
 -- Table structure for table `User` generated from model 'User'
 --
 
-CREATE TABLE IF NOT EXISTS `User` (
+CREATE TABLE IF NOT EXISTS `user` (
   `id` BIGINT DEFAULT NULL,
   `username` TEXT DEFAULT NULL,
   `firstName` TEXT DEFAULT NULL,

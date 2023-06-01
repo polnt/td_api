@@ -1,6 +1,5 @@
 import express, { Handler, Request, Response, NextFunction } from 'express';
 import container from './inversion-of-control/container';
-// import multer from "multer";
 
 import { MySQLClient } from 'app/db/mysql';
 
@@ -11,8 +10,9 @@ import { authMiddleware, notfoundMiddleware } from 'app/middlewares';
 
 import { exceptionsFilter } from 'app/filters';
 
-const asyncWrapper = (handler: Handler) => (req: Request, res: Response, next: NextFunction) =>
-  Promise.resolve(handler(req, res, next)).catch(next);
+const asyncWrapper =
+  (handler: Handler) => (req: Request, res: Response, next: NextFunction) =>
+    Promise.resolve(handler(req, res, next)).catch(next);
 
 const Router = express.Router();
 
@@ -35,10 +35,6 @@ export const router = async (): Promise<express.Router> => {
   const userController = container.get<UserController>(TYPES.UserController);
 
   // ROUTES
-  Router.get('/500', (_: Request, __: Response) => {
-    throw new Error('test internal server error');
-  });
-
   // FIRST PATH HANDLED
   Router.get('/', (_: Request, response: Response) =>
     response.status(200).json({
@@ -59,9 +55,13 @@ export const router = async (): Promise<express.Router> => {
   Router.get('/user/:id', asyncWrapper(userController.getOne));
   Router.post('/user/create', asyncWrapper(userController.create));
   Router.put('/user/update/:id', asyncWrapper(userController.update));
-  Router.put('/user/reset_password', asyncWrapper(userController.resetPassword));
+  Router.put(
+    '/user/reset_password',
+    asyncWrapper(userController.resetPassword)
+  );
   Router.delete('/user/delete/:id', asyncWrapper(userController.delete));
 
+  // 404 & Exceptions
   Router.use(notfoundMiddleware);
   Router.use(exceptionsFilter);
 

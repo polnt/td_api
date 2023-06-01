@@ -2,7 +2,7 @@ import { inject, injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 
 import { appConfig } from 'app/config';
-import { hash, compare, checkEmailDuplicate } from 'app/utils';
+import { hash, compare, checkEmailDuplicate, NotFoundError } from 'app/utils';
 import { AuthPayload } from './model';
 import { MySQLClient } from 'app/db/mysql';
 import TYPES from 'app/inversion-of-control/types';
@@ -15,13 +15,17 @@ export class UserService {
   public async getOne(
     userID: number
   ): Promise<{ status: number; message: string; data?: any }> {
+    if (isNaN(userID)) {
+      throw new NotFoundError();
+    }
+
     const connection = await this.mysqlClient.getConnection();
     const [rows] = await connection.query(
       'SELECT * FROM user WHERE id = ?',
       userID
     );
-
     connection.release();
+
     const users = this.mysqlClient.processRows(rows);
     if (users?.length) {
       const { password, ...data } = users[0];
