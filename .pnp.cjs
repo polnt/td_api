@@ -36,7 +36,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/swagger-ui-express", "npm:4.1.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:5.59.7"],\
             ["@typescript-eslint/parser", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:5.59.7"],\
-            ["app", "link:./src::locator=td_api%40workspace%3A."],\
             ["auto-bind", "npm:4.0.0"],\
             ["bcrypt", "npm:5.1.0"],\
             ["cors", "npm:2.8.5"],\
@@ -830,16 +829,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["picomatch", "npm:2.3.1"]\
           ],\
           "linkType": "HARD"\
-        }]\
-      ]],\
-      ["app", [\
-        ["link:./src::locator=td_api%40workspace%3A.", {\
-          "packageLocation": "./src/",\
-          "packageDependencies": [\
-            ["app", "link:./src::locator=td_api%40workspace%3A."]\
-          ],\
-          "linkType": "SOFT",\
-          "discardFromLookup": true\
         }]\
       ]],\
       ["aproba", [\
@@ -3634,7 +3623,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/swagger-ui-express", "npm:4.1.3"],\
             ["@typescript-eslint/eslint-plugin", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:5.59.7"],\
             ["@typescript-eslint/parser", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:5.59.7"],\
-            ["app", "link:./src::locator=td_api%40workspace%3A."],\
             ["auto-bind", "npm:4.0.0"],\
             ["bcrypt", "npm:5.1.0"],\
             ["cors", "npm:2.8.5"],\
