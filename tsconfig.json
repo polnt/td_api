@@ -6,9 +6,9 @@
     "moduleResolution": "node",
     "strict": true,
     "outDir": "./dist",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "app/*": ["src/*"]
+      "app/*": ["./*"]
     },
     "types": ["node", "express"],
     "typeRoots": ["./custom_typings/express", "./**/node_modules/@types"],

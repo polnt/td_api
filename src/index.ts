@@ -1,7 +1,6 @@
 import express, { Express } from 'express';
 import YAML from 'yaml';
 import { readFileSync } from 'app/utils/fs';
-import path from 'path';
 import { appConfig } from 'app/config';
 
 import cors from 'cors';
@@ -13,7 +12,7 @@ import swaggerUi from 'swagger-ui-express';
 
 const app: Express = express();
 const port = appConfig.app.port;
-const docPath = path.resolve(__dirname, './db/mysql/doc/db.yml');
+const docPath = 'src/db/mysql/doc/db.yml';
 const file = readFileSync(docPath, 'utf-8');
 const swaggerDocument = YAML.parse(file);
 
