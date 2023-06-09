@@ -8,6 +8,4 @@ RUN apk add bash \
     && yarn \
     && yarn ci
 
-EXPOSE 3000
-
 USER node
