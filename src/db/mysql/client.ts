@@ -4,12 +4,12 @@ import mysql, {
   ResultSetHeader,
   RowDataPacket,
 } from 'mysql2/promise';
+import { readFile } from 'fs/promises';
 import { appConfig } from 'app/config';
-import { readFileAsync } from 'app/utils';
 
 @injectable()
 export class MySQLClient {
-  private readonly hydrationTablesPath: string =
+  private readonly hydrationPath: string =
     'src/db/mysql/tables/mysql_schema.sql';
   private pool: mysql.Pool | undefined = undefined;
 
@@ -25,7 +25,7 @@ export class MySQLClient {
       `CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`
     );
     await connection.query(`use ${appConfig.mysql.database};`);
-    const tables: Buffer = await readFileAsync(this.hydrationTablesPath);
+    const tables: Buffer = await readFile(this.hydrationPath);
     await connection.query(tables.toString('utf-8')).catch((err) => {
       throw err;
     });

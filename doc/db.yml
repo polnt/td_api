@@ -204,7 +204,7 @@ paths:
           description: User not found
 components:
   schemas:
-    User:
+    user:
       type: object
       properties:
         id:
@@ -229,7 +229,7 @@ components:
       xml:
         name: user
   requestBodies:
-    UserArray:
+    userArray:
       description: List of user object
       content:
         application/json:

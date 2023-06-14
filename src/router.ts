@@ -10,9 +10,10 @@ import { authMiddleware, notfoundMiddleware } from 'app/middlewares';
 
 import { exceptionsFilter } from 'app/filters';
 
-const asyncWrapper =
-  (handler: Handler) => (req: Request, res: Response, next: NextFunction) =>
+function asyncWrapper(handler: Handler) {
+  return (req: Request, res: Response, next: NextFunction) =>
     Promise.resolve(handler(req, res, next)).catch(next);
+}
 
 const Router = express.Router();
 

@@ -5,7 +5,7 @@ COPY . /home
 WORKDIR /home
 
 RUN apk add bash \
-    && yarn \
-    && yarn ci
+    && chown -R node:node /home \
+    && yarn
 
 USER node

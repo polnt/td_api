@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 
 import {
+  LogicError,
   UnauthorizedError,
   NotFoundError,
   ForbiddenError,
@@ -18,6 +19,10 @@ export const exceptionsFilter = (
   let status = 500;
 
   switch ((err as any).constructor) {
+    case LogicError:
+      message = (err as LogicError).message;
+      status = 400;
+      break;
     case UnauthorizedError:
       message = (err as UnauthorizedError).message;
       status = 401;
