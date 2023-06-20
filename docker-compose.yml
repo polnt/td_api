@@ -15,21 +15,16 @@ services:
       - mysql_volume:/var/lib/mysql
       - /var/run/mysqld:/var/run/mysqld
     ports:
-      - 3306:3306
-    expose:
-      - 3306
+      - 3307:3306
     environment:
       MYSQL_DATABASE: td_api
       MYSQL_ROOT_PASSWORD: root
     networks:
       - backend
 
-
   api:
     container_name: api
     build: .
-    networks:
-      - backend
     environment:
       DB_HOST: mysqldb
       DB_PORT: 3306
@@ -39,7 +34,9 @@ services:
     tty: true
     ports:
       - 3000:3000
-    expose:
-      - 3000
+    command: bash
+    networks:
+      - backend
     depends_on:
       - mysqldb
+    restart: unless-stopped

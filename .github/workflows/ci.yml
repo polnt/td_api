@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, develop ]
 
 jobs:
   build:
@@ -19,4 +19,3 @@ jobs:
           node-version: '18.x'
       - run: yarn --immutable
       - run: yarn ci
-      # - run: yarn test

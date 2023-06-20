@@ -8,6 +8,4 @@ RUN apk add bash \
     && chown -R node:node /home \
     && yarn
 
-EXPOSE 3000
-
 USER node
