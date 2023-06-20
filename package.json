@@ -10,7 +10,7 @@
     "build": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "ci": "yarn lint && yarn build",
+    "ci": "yarn lint && tsc -p tsconfig.build.json --noEmit",
     "dev": "nodemon",
     "dev:docker": "docker compose exec api bash -c 'yarn dev'",
     "mysql:docker": "docker compose exec mysqldb bash",
