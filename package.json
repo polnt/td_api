@@ -10,7 +10,7 @@
     "build": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "ci": "yarn lint && yarn build && yarn test",
+    "ci": "yarn lint && yarn test && yarn build",
     "dev": "nodemon",
     "dev:docker": "docker compose exec api bash -c 'yarn dev'",
     "mysql:docker": "docker compose exec mysqldb bash",
@@ -18,7 +18,7 @@
     "start": "node -r ./tsconfig-paths.js ./dist/index.js",
     "docker": "docker compose up",
     "docker:build": "docker compose up --build",
-    "docker:reset": "docker compose down && docker system prune -af && docker volume rm td_api_mysql_volume",
+    "docker:reset": "docker compose down --volumes && docker system prune -af",
     "postinstall": "husky install",
     "prepack": "pinst --disable",
     "postpack": "pinst --enable"
