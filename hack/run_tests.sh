@@ -1,5 +1,5 @@
 #!/bin/bash
 
-docker docker:build
-yarn ci
+docker compose up --build --detach
+yarn test:docker
 yarn docker:reset
