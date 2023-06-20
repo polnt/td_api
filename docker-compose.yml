@@ -15,7 +15,9 @@ services:
       - mysql_volume:/var/lib/mysql
       - /var/run/mysqld:/var/run/mysqld
     ports:
-      - 3307:3307
+      - 3306:3306
+    expose:
+      - 3306
     environment:
       MYSQL_DATABASE: td_api
       MYSQL_ROOT_PASSWORD: root
@@ -30,12 +32,14 @@ services:
       - backend
     environment:
       DB_HOST: mysqldb
-      DB_PORT: 3307
+      DB_PORT: 3306
       DB_USER: root
       DB_PASSWORD: root
       DB_NAME: td_api
     tty: true
     ports:
       - 3000:3000
+    expose:
+      - 3000
     depends_on:
       - mysqldb

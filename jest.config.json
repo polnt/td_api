@@ -1,0 +1,14 @@
+{
+  "preset": "ts-jest",
+  "testEnvironment": "node",
+  "collectCoverage": true,
+  "modulePathIgnorePatterns": ["<rootDir>/dist/"],
+  "coveragePathIgnorePatterns": [
+    "/node_modules/",
+    "/**/node_modules/",
+    "/dist/"
+  ],
+  "moduleNameMapper": {
+    "^app/(.*)$": "<rootDir>/src/$1"
+  }
+}
