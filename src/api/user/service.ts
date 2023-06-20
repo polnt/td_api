@@ -34,8 +34,7 @@ export class UserService {
       connection.release();
       return { status: 404, message: 'Email not found' };
     }
-    // throw new LogicError('Invalid email');
-    throw new LogicError(`${email}`);
+    throw new LogicError('Invalid email');
   }
 
   // CRUD
