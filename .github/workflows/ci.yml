@@ -18,4 +18,5 @@ jobs:
         with:
           node-version: '18.x'
       - run: yarn --immutable
+      - run:  chmod +x /home/hack/run_tests.sh
       - run: ./hack/run_tests.sh
