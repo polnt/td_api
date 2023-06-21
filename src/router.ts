@@ -1,7 +1,7 @@
 import express, { Handler, Request, Response, NextFunction } from 'express';
 import container from './inversion-of-control/container';
 
-import { MySQLClient } from 'app/db/mysql';
+import { MySQLClient } from 'app/backend/mysql';
 
 import { UserController } from 'app/api/user';
 
@@ -51,16 +51,16 @@ export const router = async (): Promise<express.Router> => {
   Router.all(`/*`, [authMiddleware(mysql)]);
 
   // USER
-  Router.get('/user', asyncWrapper(userController.getAll));
-  Router.get('/user/current', asyncWrapper(userController.getCurrentUser));
-  Router.get('/user/:id', asyncWrapper(userController.getOne));
-  Router.post('/user/create', asyncWrapper(userController.create));
-  Router.put('/user/update/:id', asyncWrapper(userController.update));
+  Router.get('/users', asyncWrapper(userController.getAll));
+  Router.get('/users/current', asyncWrapper(userController.getCurrentUser));
+  Router.get('/users/:id', asyncWrapper(userController.getOne));
+  Router.post('/users/create', asyncWrapper(userController.create));
+  Router.put('/users/update/:id', asyncWrapper(userController.update));
   Router.put(
-    '/user/reset_password',
+    '/users/reset_password',
     asyncWrapper(userController.resetPassword)
   );
-  Router.delete('/user/delete/:id', asyncWrapper(userController.delete));
+  Router.delete('/users/delete/:id', asyncWrapper(userController.delete));
 
   // 404 & Exceptions
   Router.use(notfoundMiddleware);

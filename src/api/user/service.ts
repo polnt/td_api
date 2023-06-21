@@ -3,29 +3,19 @@ import jwt from 'jsonwebtoken';
 import { hash, compare } from 'bcrypt';
 
 import { appConfig } from 'app/config';
-import {
-  ConflictError,
-  LogicError,
-  NotFoundError,
-  UnauthorizedError,
-} from 'app/utils';
+import { ConflictError, LogicError, NotFoundError, UnauthorizedError } from 'app/utils';
 import { AuthPayload } from './model';
-import { MySQLClient } from 'app/db/mysql';
+import { MySQLClient } from 'app/backend/mysql';
 import TYPES from 'app/inversion-of-control/types';
 
 @injectable()
 export class UserService {
   constructor(@inject(TYPES.MySQLClient) private mysqlClient: MySQLClient) {}
 
-  private async checkEmailDuplicate(
-    email: string
-  ): Promise<{ status: number; message: string; data?: any }> {
+  private async checkEmailDuplicate(email: string): Promise<{ status: number; message: string; data?: any }> {
     if (email) {
       const connection = await this.mysqlClient.getConnection();
-      const [rows] = await connection.query(
-        'SELECT id, email FROM user WHERE email = ?',
-        email
-      );
+      const [rows] = await connection.query('SELECT id, email FROM user WHERE email = ?', email);
       const response = this.mysqlClient.processRows(rows);
       if (response.length) {
         connection.release();
@@ -38,18 +28,13 @@ export class UserService {
   }
 
   // CRUD
-  public async getOne(
-    userID: number
-  ): Promise<{ status: number; message: string; data?: any }> {
+  public async getOne(userID: number): Promise<{ status: number; message: string; data?: any }> {
     if (isNaN(userID)) {
       throw new LogicError('Invalid userID (not a number)');
     }
 
     const connection = await this.mysqlClient.getConnection();
-    const [rows] = await connection.query(
-      'SELECT * FROM user WHERE id = ?',
-      userID
-    );
+    const [rows] = await connection.query('SELECT * FROM user WHERE id = ?', userID);
     connection.release();
 
     const users = this.mysqlClient.processRows(rows);
@@ -83,17 +68,12 @@ export class UserService {
     return { status: 200, data: [], message: 'No data' };
   }
 
-  public async create(
-    payload: any
-  ): Promise<{ status: number; message: string; data?: any }> {
+  public async create(payload: any): Promise<{ status: number; message: string; data?: any }> {
     const { email } = payload;
     await this.checkEmailDuplicate(email);
 
     const connection = await this.mysqlClient.getConnection();
-    const createResult: any = await connection.query(
-      'INSERT INTO user SET ?',
-      payload
-    );
+    const createResult: any = await connection.query('INSERT INTO user SET ?', payload);
     connection.release();
     const result = await this.getOne(createResult[0].insertId);
 
@@ -104,10 +84,7 @@ export class UserService {
     };
   }
 
-  public async update(
-    userID: number,
-    payload: any
-  ): Promise<{ status: number; message: string }> {
+  public async update(userID: number, payload: any): Promise<{ status: number; message: string }> {
     await this.getOne(userID);
 
     if (payload.password) {
@@ -121,9 +98,7 @@ export class UserService {
     return { status: 201, message: 'User successfully updated' };
   }
 
-  public async delete(
-    userID: number
-  ): Promise<{ status: number; message: string }> {
+  public async delete(userID: number): Promise<{ status: number; message: string }> {
     await this.getOne(userID);
 
     const connection = await this.mysqlClient.getConnection();
@@ -134,15 +109,10 @@ export class UserService {
   }
 
   // LOGIC
-  public async authenticate(
-    payload: AuthPayload
-  ): Promise<{ status: number; message?: string; token?: string }> {
+  public async authenticate(payload: AuthPayload): Promise<{ status: number; message?: string; token?: string }> {
     const connection = await this.mysqlClient.getConnection();
     const { email, password } = payload;
-    const [rows] = await connection.query(
-      'SELECT id, email, password, role FROM user WHERE email = ?',
-      email
-    );
+    const [rows] = await connection.query('SELECT id, email, password, role FROM user WHERE email = ?', email);
 
     connection.release();
     const users: any[] = this.mysqlClient.processRows(rows);
@@ -164,10 +134,7 @@ export class UserService {
     throw new UnauthorizedError('Wrong credentials');
   }
 
-  public async resetPassword(
-    userID: number,
-    password: string
-  ): Promise<{ status: number; message: string }> {
+  public async resetPassword(userID: number, password: string): Promise<{ status: number; message: string }> {
     const connection = await this.mysqlClient.getConnection();
     const hashPwd = await hash(password, 10);
     const data = { password: hashPwd };

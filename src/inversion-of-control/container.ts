@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { Container } from 'inversify';
 
-import { MySQLClient } from 'app/db/mysql';
+import { MySQLClient } from 'app/backend/mysql';
 import TYPES from './types';
 
 import { UserService, UserController } from 'app/api/user';

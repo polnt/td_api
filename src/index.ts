@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { Express } from 'express';
 import YAML from 'yaml';
 import { readFileSync } from 'fs';

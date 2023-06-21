@@ -34,7 +34,7 @@ export const exceptionsFilter = (
       break;
 
     case NotFoundError:
-      message = (err as NotFoundError).message;
+      message = (err as NotFoundError).message || 'Resource not found';
       status = 404;
       break;
 
