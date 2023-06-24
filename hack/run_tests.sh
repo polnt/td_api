@@ -4,5 +4,5 @@
 # docker compose -f ./hack/docker-compose.dummy.yml down --volumes
 
 docker compose -f ./hack/docker-compose.dummy.yml up -d --build
-docker compose exec api_test bash -c 'yarn test:all'
+docker compose -f ./hack/docker-compose.dummy.yml exec api_test bash -c 'yarn test:all'
 # docker compose -f ./hack/docker-compose.dummy.yml down --volumes
