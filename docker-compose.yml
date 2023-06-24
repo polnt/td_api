@@ -48,6 +48,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
     tty: true
+    command: bash
     ports:
       - 3000:3000
     networks:
