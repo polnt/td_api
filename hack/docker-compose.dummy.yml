@@ -1,0 +1,56 @@
+version: "3.8"
+
+networks:
+  td_api_test:
+
+
+services:
+  mysqldb_test:
+    container_name: mysqldb_test
+    image: mysql:8.0
+    command: --authentication_policy=mysql_native_password
+    environment:
+      MYSQL_DATABASE: td_api_test
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+    ports:
+      - 3308:3306
+    networks:
+      - td_api_test
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysql",
+          "-u",
+          "test",
+          "-ptest",
+          "--protocol=tcp"
+        ]
+      start_period: 2m
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+  api_test:
+    container_name: api_test
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    environment:
+      DB_HOST: mysqldb_test
+      DB_PORT: 3306
+      DB_USER: test
+      DB_PASSWORD: test
+      DB_NAME: td_api_test
+      SECRET_KEY_JWT: secret
+    tty: true
+    command: yarn test:all
+    ports:
+      - 3001:3000
+    networks:
+      - td_api_test
+    depends_on:
+      mysqldb_test:
+        condition: service_healthy

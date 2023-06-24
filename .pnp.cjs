@@ -53,7 +53,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mysql2", "npm:3.3.3"],\
             ["nodemon", "npm:2.0.22"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:2.8.8"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["supertest", "npm:6.3.3"],\
             ["swagger-ui-express", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:4.6.3"],\
@@ -5916,15 +5915,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["prettier", [\
-        ["npm:2.8.8", {\
-          "packageLocation": "./.yarn/cache/prettier-npm-2.8.8-430828a36c-b49e409431.zip/node_modules/prettier/",\
-          "packageDependencies": [\
-            ["prettier", "npm:2.8.8"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["pretty-format", [\
         ["npm:29.5.0", {\
           "packageLocation": "./.yarn/cache/pretty-format-npm-29.5.0-4f1086147d-4065356b55.zip/node_modules/pretty-format/",\
@@ -6707,7 +6697,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mysql2", "npm:3.3.3"],\
             ["nodemon", "npm:2.0.22"],\
             ["pinst", "npm:3.0.0"],\
-            ["prettier", "npm:2.8.8"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["supertest", "npm:6.3.3"],\
             ["swagger-ui-express", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:4.6.3"],\

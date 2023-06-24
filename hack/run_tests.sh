@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker compose up --build --detach
-yarn test:docker
+docker compose -f ./hack/docker-compose.dummy.yml up --build --abort-on-container-exit
+docker compose -f ./hack/docker-compose.dummy.yml down --volumes
