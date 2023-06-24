@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: TD-API - OpenAPI 3.0
   description: "OpenAPI for td_api"
   termsOfService: http://swagger.io/terms/
   contact:

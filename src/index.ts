@@ -1,4 +1,4 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import express, { Express } from 'express';
 import YAML from 'yaml';
 import { readFileSync } from 'fs';
@@ -9,6 +9,7 @@ import { router } from './router';
 
 import swaggerUi from 'swagger-ui-express';
 
+dotenv.config();
 const app: Express = express();
 const port = appConfig.app.port;
 const docPath = 'doc/db.yml';

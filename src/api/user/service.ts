@@ -75,12 +75,12 @@ export class UserService {
     const connection = await this.mysqlClient.getConnection();
     const createResult: any = await connection.query('INSERT INTO user SET ?', payload);
     connection.release();
-    const result = await this.getOne(createResult[0].insertId);
+    const { data } = await this.getOne(createResult[0].insertId);
 
     return {
       status: 201,
       message: 'User successfully created',
-      data: result.data,
+      data: data,
     };
   }
 
@@ -128,7 +128,7 @@ export class UserService {
         const token = jwt.sign(tokenPayload, appConfig.app.secret, {
           expiresIn: appConfig.app.expiresIn,
         });
-        return { status: 200, token: token };
+        return { status: 200, message: 'Authentication success', token: token };
       }
     }
     throw new UnauthorizedError('Wrong credentials');

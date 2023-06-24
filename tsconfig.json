@@ -1,15 +1,21 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "lib": ["es2020"],
+    "lib": [
+      "es2020"
+    ],
     "module": "commonJS",
     "moduleResolution": "node",
     "strict": true,
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "app/*": ["src/*"],
-      "tests/*": ["tests/*"]
+      "app/*": [
+        "src/*"
+      ],
+      "tests/*": [
+        "tests/*"
+      ]
     },
     "types": [
       "node",
@@ -19,13 +25,22 @@
       "jsonwebtoken",
       "reflect-metadata"
     ],
-    "typeRoots": ["./custom_typings/express", "./**/node_modules/@types"],
+    "typeRoots": [
+      "./custom_typings/express"
+    ],
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true
   },
-  "include": ["src/**/*", "tests/**/*", "tsconfig-paths.js"],
-  "exclude": ["coverage", "node_modules"]
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "tsconfig-paths.js"
+  ],
+  "exclude": [
+    "coverage",
+    "node_modules"
+  ]
 }
