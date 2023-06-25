@@ -41,13 +41,13 @@ describe('user integration tests', () => {
   // });
 
   test('authenticate', async () => {
-    const response = await request(app).get(`/api/signin`).send({ email: 'test@test.test', password: 'test' });
+    const response = await request(app).get(`/api/signin`).send({ email: 'foo@foo.foo', password: 'foo' });
     expect(response.status).toBe(200);
     expect(response.body.message).toEqual('Authentication success');
   });
 
   test('delete account', async () => {
-    const response = await request(app).delete(`/api/delete-account`).send({ email: 'bar@bar.bar', password: 'bar' });
+    const response = await request(app).delete(`/api/delete-account`).send({ email: 'foo@foo.foo', password: 'foo' });
     expect(response.status).toBe(200);
     expect(response.body.message).toEqual('Account unregistered');
   });
