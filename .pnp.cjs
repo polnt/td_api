@@ -52,7 +52,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsonwebtoken", "npm:9.0.0"],\
             ["mysql2", "npm:3.3.3"],\
             ["nodemon", "npm:2.0.22"],\
-            ["pinst", "npm:3.0.0"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["supertest", "npm:6.3.3"],\
             ["swagger-ui-express", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:4.6.3"],\
@@ -5878,15 +5877,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["pinst", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/pinst-npm-3.0.0-5d2b6c1dda-4ae48a6a60.zip/node_modules/pinst/",\
-          "packageDependencies": [\
-            ["pinst", "npm:3.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["pirates", [\
         ["npm:4.0.5", {\
           "packageLocation": "./.yarn/cache/pirates-npm-4.0.5-22f8e827ce-c9994e61b8.zip/node_modules/pirates/",\
@@ -6696,7 +6686,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jsonwebtoken", "npm:9.0.0"],\
             ["mysql2", "npm:3.3.3"],\
             ["nodemon", "npm:2.0.22"],\
-            ["pinst", "npm:3.0.0"],\
             ["reflect-metadata", "npm:0.1.13"],\
             ["supertest", "npm:6.3.3"],\
             ["swagger-ui-express", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:4.6.3"],\
