@@ -4,15 +4,15 @@ import { hash, compare } from 'bcrypt';
 
 import { appConfig } from 'app/config';
 import { ConflictError, LogicError, NotFoundError, UnauthorizedError } from 'app/utils';
-import { AuthPayload } from './model';
+import { AuthPayload, iUser } from './model';
 import { MySQLClient } from 'app/backend/mysql';
 import TYPES from 'app/inversion-of-control/types';
 
 @injectable()
 export class UserService {
-  constructor(@inject(TYPES.MySQLClient) private mysqlClient: MySQLClient) {}
+  constructor(@inject(TYPES.MySQLClient) private mysqlClient: MySQLClient) { }
 
-  private async checkEmailDuplicate(email: string): Promise<{ status: number; message: string; data?: any }> {
+  private async checkEmailDuplicate(email: string): Promise<{ status: number; message: string; }> {
     if (email) {
       const connection = await this.mysqlClient.getConnection();
       const [rows] = await connection.query('SELECT id, email FROM user WHERE email = ?', email);
@@ -27,8 +27,32 @@ export class UserService {
     throw new LogicError('Invalid email');
   }
 
-  // CRUD
-  public async getOne(userID: number): Promise<{ status: number; message: string; data?: any }> {
+  public async authenticate(payload: AuthPayload): Promise<{ status: number; message?: string; token?: string; }> {
+    const connection = await this.mysqlClient.getConnection();
+    const { email, password } = payload;
+    const [rows] = await connection.query('SELECT id, email, password FROM user WHERE email = ?', email);
+
+    connection.release();
+    const users: any[] = this.mysqlClient.processRows(rows);
+
+    if (users?.length) {
+      const user = users[0];
+      const match = await compare(password, user.password);
+      if (match) {
+        const tokenPayload: { userID: number, email: string; } = {
+          userID: user.id,
+          email: user.email,
+        };
+        const token = jwt.sign(tokenPayload, appConfig.app.secret, {
+          expiresIn: appConfig.app.expiresIn,
+        });
+        return { status: 200, message: 'Authentication success', token: token };
+      }
+    }
+    throw new UnauthorizedError('Wrong credentials');
+  }
+
+  public async getOne(userID: number): Promise<{ status: number; message: string; data?: iUser; }> {
     if (isNaN(userID)) {
       throw new LogicError('Invalid userID (not a number)');
     }
@@ -49,26 +73,7 @@ export class UserService {
     throw new NotFoundError('User not found');
   }
 
-  public async getAll(): Promise<{
-    status: number;
-    data: any[];
-    message: string;
-  }> {
-    const connection = await this.mysqlClient.getConnection();
-    const [rows] = await connection.query('SELECT * from user');
-    connection.release();
-    const users = this.mysqlClient.processRows(rows);
-    if (users.length) {
-      return {
-        status: 200,
-        data: users,
-        message: 'Users list successfully fetched',
-      };
-    }
-    return { status: 200, data: [], message: 'No data' };
-  }
-
-  public async create(payload: any): Promise<{ status: number; message: string; data?: any }> {
+  public async create(payload: AuthPayload): Promise<{ status: number; message: string; data?: iUser; }> {
     const { email } = payload;
     await this.checkEmailDuplicate(email);
 
@@ -79,12 +84,23 @@ export class UserService {
 
     return {
       status: 201,
-      message: 'User successfully created',
+      message: 'Account successfully created',
       data: data,
     };
   }
 
-  public async update(userID: number, payload: any): Promise<{ status: number; message: string }> {
+  public async delete(payload: AuthPayload): Promise<{ status: number; message: string; }> {
+    const { email } = payload;
+    await this.authenticate(payload);
+
+    const connection = await this.mysqlClient.getConnection();
+    await connection.query('DELETE FROM user WHERE email = ?', email);
+    connection.release();
+
+    return { status: 200, message: 'Account unregistered' };
+  }
+
+  public async update(userID: number, payload: iUser): Promise<{ status: number; message: string; }> {
     await this.getOne(userID);
 
     if (payload.password) {
@@ -96,50 +112,5 @@ export class UserService {
     connection.release();
 
     return { status: 201, message: 'User successfully updated' };
-  }
-
-  public async delete(userID: number): Promise<{ status: number; message: string }> {
-    await this.getOne(userID);
-
-    const connection = await this.mysqlClient.getConnection();
-    await connection.query('DELETE FROM user WHERE id = ?', userID);
-    connection.release();
-
-    return { status: 200, message: 'Account unregistered' };
-  }
-
-  // LOGIC
-  public async authenticate(payload: AuthPayload): Promise<{ status: number; message?: string; token?: string }> {
-    const connection = await this.mysqlClient.getConnection();
-    const { email, password } = payload;
-    const [rows] = await connection.query('SELECT id, email, password, role FROM user WHERE email = ?', email);
-
-    connection.release();
-    const users: any[] = this.mysqlClient.processRows(rows);
-
-    if (users?.length) {
-      const user = users[0];
-      const match = await compare(password, user.password);
-      if (match) {
-        const tokenPayload = {
-          userID: user.id,
-          email: user.email,
-        };
-        const token = jwt.sign(tokenPayload, appConfig.app.secret, {
-          expiresIn: appConfig.app.expiresIn,
-        });
-        return { status: 200, message: 'Authentication success', token: token };
-      }
-    }
-    throw new UnauthorizedError('Wrong credentials');
-  }
-
-  public async resetPassword(userID: number, password: string): Promise<{ status: number; message: string }> {
-    const connection = await this.mysqlClient.getConnection();
-    const hashPwd = await hash(password, 10);
-    const data = { password: hashPwd };
-    await connection.query('UPDATE user SET ? WHERE id= ?', [data, userID]);
-    connection.release();
-    return { status: 201, message: 'Password successfully reset' };
   }
 }

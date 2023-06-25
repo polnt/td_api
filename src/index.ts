@@ -12,7 +12,7 @@ import swaggerUi from 'swagger-ui-express';
 dotenv.config();
 const app: Express = express();
 const port = appConfig.app.port;
-const docPath = 'doc/db.yml';
+const docPath = 'src/swaggerdoc/db.yml';
 const file = readFileSync(docPath, 'utf-8');
 const swaggerDocument = YAML.parse(file);
 

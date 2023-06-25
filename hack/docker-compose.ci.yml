@@ -46,7 +46,7 @@ services:
       DB_NAME: td_api_test
       SECRET_KEY_JWT: secret
     tty: true
-    command: yarn test:all
+    command: bash
     ports:
       - 3001:3000
     networks:

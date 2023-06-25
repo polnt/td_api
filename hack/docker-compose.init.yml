@@ -11,4 +11,4 @@ services:
     healthcheck:
       start_period: 2m
       interval: 10s
-      retries: 10
+      retries: 100

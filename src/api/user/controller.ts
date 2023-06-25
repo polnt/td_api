@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { injectable, inject } from 'inversify';
 import TYPES from 'app/inversion-of-control/types';
 import { UserService } from './service';
-import { AuthPayload } from './model';
 
 @injectable()
 export class UserController {
@@ -11,46 +10,27 @@ export class UserController {
     autoBind(this);
   }
 
-  public async getOne(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const result = await this.userService.getOne(+id);
-    res.status(result.status).json(result);
-  }
-
-  public async getAll(_: Request, res: Response): Promise<void> {
-    const result = await this.userService.getAll();
-    res.status(result.status).json(result);
-  }
-
   public async create(req: Request, res: Response): Promise<void> {
     const result = await this.userService.create(req.body);
     res.status(result.status).json(result);
   }
 
-  public async update(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const result = await this.userService.update(+id, req.body);
-    res.status(result.status).json(result);
-  }
-
-  public async delete(req: Request, res: Response): Promise<void> {
-    const { id } = req.params;
-    const result = await this.userService.delete(+id);
-    res.status(result.status).json(result);
-  }
-
-  public async authorize(
-    request: Request<any, AuthPayload>,
+  public async authenticate(
+    request: Request,
     response: Response
   ): Promise<void> {
     const auth: any = await this.userService.authenticate(request.body);
     response.status(auth.status).json(auth);
   }
 
-  public async resetPassword(req: Request, res: Response): Promise<void> {
+  public async delete(req: Request, res: Response): Promise<void> {
+    const result = await this.userService.delete(req.body);
+    res.status(result.status).json(result);
+  }
+
+  public async update(req: Request, res: Response): Promise<void> {
     const { userID } = req.user;
-    const { password } = req.body;
-    const result = await this.userService.resetPassword(userID, password);
+    const result = await this.userService.update(userID, req.body);
     res.status(result.status).json(result);
   }
 

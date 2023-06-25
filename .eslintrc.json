@@ -3,14 +3,25 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["google"],
+  "extends": [
+    "google"
+  ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "rules": {
+    "quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ],
     "max-len": [
       "error",
       120,
@@ -24,10 +35,32 @@
     "object-curly-spacing": "off",
     "require-jsdoc": "off",
     "indent": "off",
-    "@typescript-eslint/indent": ["error", 2],
-    "comma-dangle": ["error", "only-multiline"],
-    "operator-linebreak": ["error", "after", { "overrides": { "?": "before", ":": "before" } }],
-    "new-cap": ["error", { "capIsNewExceptions": ["Router"] }],
+    "@typescript-eslint/indent": [
+      "error",
+      2
+    ],
+    "comma-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "operator-linebreak": [
+      "error",
+      "after",
+      {
+        "overrides": {
+          "?": "before",
+          ":": "before"
+        }
+      }
+    ],
+    "new-cap": [
+      "error",
+      {
+        "capIsNewExceptions": [
+          "Router"
+        ]
+      }
+    ],
     "no-unused-vars": [
       "error",
       {

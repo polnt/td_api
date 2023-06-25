@@ -1,11 +1,11 @@
 import { injectable } from 'inversify';
 import mysql, { OkPacket, ResultSetHeader, RowDataPacket } from 'mysql2/promise';
-import { readFile } from 'fs/promises';
+import { readFile, readdir } from 'fs/promises';
 import { appConfig } from 'app/config';
 
 @injectable()
 export class MySQLClient {
-  private readonly hydrationPath: string = 'src/backend/mysql/tables/mysql_schema.sql';
+  private readonly hydrationPath: string = 'src/backend/mysql/tables';
   private pool: mysql.Pool | undefined = undefined;
 
   private async checkConnection(): Promise<void> {
@@ -18,10 +18,15 @@ export class MySQLClient {
     const connection = await this.getConnection();
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`);
     await connection.query(`use ${appConfig.mysql.database};`);
-    const tables: Buffer = await readFile(this.hydrationPath);
-    await connection.query(tables.toString('utf-8')).catch((err) => {
-      throw err;
+    const tables: string[] = await readdir(this.hydrationPath);
+    const thenables = tables.map(async (table) => {
+      const tmp = await readFile(`${this.hydrationPath}/${table}`);
+      await connection.query(tmp.toString('utf-8')).catch((err) => {
+        throw err;
+      });
     });
+
+    await Promise.all(thenables);
     connection.release();
   }
 

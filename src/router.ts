@@ -4,6 +4,7 @@ import container from './inversion-of-control/container';
 import { MySQLClient } from 'app/backend/mysql';
 
 import { UserController } from 'app/api/user';
+import { TodoController } from 'app/api/todo';
 
 import TYPES from './inversion-of-control/types';
 import { authMiddleware, notfoundMiddleware } from 'app/middlewares';
@@ -34,6 +35,7 @@ export const router = async (): Promise<express.Router> => {
 
   // CONTROLLERS
   const userController = container.get<UserController>(TYPES.UserController);
+  const todoController = container.get<TodoController>(TYPES.TodoController);
 
   // ROUTES
   // FIRST PATH HANDLED
@@ -45,22 +47,23 @@ export const router = async (): Promise<express.Router> => {
   );
 
   // SIGN IN
-  Router.post('/signin', asyncWrapper(userController.authorize));
+  Router.post('/signup', asyncWrapper(userController.create));
+  Router.post('/signin', asyncWrapper(userController.authenticate));
+  Router.post('/delete-account', asyncWrapper(userController.delete));
 
   // AUTHENTICATION MIDDLEWARE
   Router.all(`/*`, [authMiddleware(mysql)]);
 
   // USER
-  Router.get('/users', asyncWrapper(userController.getAll));
-  Router.get('/users/current', asyncWrapper(userController.getCurrentUser));
-  Router.get('/users/:id', asyncWrapper(userController.getOne));
-  Router.post('/users/create', asyncWrapper(userController.create));
-  Router.put('/users/update/:id', asyncWrapper(userController.update));
-  Router.put(
-    '/users/reset_password',
-    asyncWrapper(userController.resetPassword)
-  );
-  Router.delete('/users/delete/:id', asyncWrapper(userController.delete));
+  Router.get('/user/current', asyncWrapper(userController.getCurrentUser));
+  Router.put('/user/update/:id', asyncWrapper(userController.update));
+
+  // TO-DO
+  Router.get('/todo', asyncWrapper(todoController.getAll));
+  Router.get('/todo/:id', asyncWrapper(todoController.getOne));
+  Router.post('/todo/create', asyncWrapper(todoController.create));
+  Router.put('/todo/update/:id', asyncWrapper(todoController.update));
+  Router.delete('/todo/delete/:id', asyncWrapper(todoController.delete));
 
   // 404 & Exceptions
   Router.use(notfoundMiddleware);

@@ -1,0 +1,366 @@
+openapi: 3.0.3
+info:
+  title: TD-API - OpenAPI 3.0
+  description: 'td_api documentation'
+  termsOfService: http://swagger.io/terms/
+  # contact:
+  #   email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:3000/api
+tags:
+  - name: user
+    description: Operations about user
+  - name: todo
+    description: Operations about todo
+
+paths:
+  /signup:
+    post:
+      tags:
+        - user
+      summary: Create user account
+      description: No token needed
+      operationId: createUser
+      requestBody:
+        description: email & password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+      responses:
+        '201':
+          description: Account successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+
+  /signin:
+    post:
+      tags:
+        - user
+      summary: Retrieves api auth token
+      description: Retrieve token
+      operationId: loginUser
+      requestBody:
+        description: email & password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+      responses:
+        '200':
+          description: Authentication success
+          content:
+            application/xml:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+
+  /delete-account:
+    delete:
+      tags:
+        - user
+      summary: Delete user account
+      description: ''
+      operationId: deleteUser
+      requestBody:
+        description: email & password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserAuth'
+      responses:
+        '200':
+          description: Account unregistered
+
+  /user/current:
+    get:
+      tags:
+        - user
+      summary: Get current authenticated user
+      description: This can only be done by the authenticated user.
+      operationId: getCurrentUser
+      parameters:
+        - name: userID
+          in: header
+          description: userID that need to be updated
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+
+  /user/update/{userID}:
+    put:
+      tags:
+        - user
+      summary: Update user
+      description: This can only be done by the authenticated user.
+      operationId: updateUser
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: jwt auth token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User successfully updated
+
+  /todo:
+    get:
+      tags:
+        - todo
+      summary: Get all todos for current user
+      description: This can only be done by the authenticated user.
+      operationId: getAllUserTodos
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: jwt auth token
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: User successfully updated
+
+  /todo/{todoID}:
+    get:
+      tags:
+        - todo
+      summary: Get specific todo for current user
+      description: This can only be done by the authenticated user.
+      operationId: getTodo
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: jwt auth token
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Todo successfully fetched
+
+  /todo/create:
+    post:
+      tags:
+        - todo
+      summary: Create Todo account
+      description: This can only be done by the authenticated user.
+      operationId: createTodo
+      requestBody:
+        description: label
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Todo'
+      responses:
+        '201':
+          description: Todo successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Todo'
+
+  /todo/update/{todoID}:
+    put:
+      tags:
+        - todo
+      summary: Update todo
+      description: This can only be done by the authenticated todo.
+      operationId: updateTodo
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: jwt auth token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent todo in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Todo'
+      responses:
+        '201':
+          description: Todo successfully updated
+
+  /todo/delete/{todoID}:
+    delete:
+      tags:
+        - todo
+      summary: Delete todo
+      description: This can only be done by the authenticated todo.
+      operationId: deleteTodo
+      parameters:
+        - name: x-auth-token
+          in: header
+          description: jwt auth token
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: delete an existent todo in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Todo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Todo'
+      responses:
+        '201':
+          description: Todo successfully deleted
+
+components:
+  schemas:
+    UserAuth:
+      type: object
+      properties:
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        firstName:
+          type: string
+          example: John
+        lastName:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: '12345'
+      xml:
+        name: user
+    Todo:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        label:
+          type: string
+          example: todo
+        user_id:
+          type: integer
+          format: int64
+          example: 1
+      xml:
+        name: todo
+  requestBodies:
+    userArray:
+      description: List of user object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+  securitySchemes:
+    api_auth:
+      type: jwt
+      flows:
+        implicit:
+          authorizationUrl: https://localhost:3000/api/signin
+          scopes:
+            write:todos: modify todos in your account
+            read:todos: read your todos
+            write:users: modify your account
+            read:users: read your account
+    # api_key:
+    #   type: apiKey
+    #   name: api_key
+    #   in: header

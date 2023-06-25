@@ -3,6 +3,5 @@
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "ms-azuretools.vscode-docker",
-    "esbenp.prettier-vscode"
   ]
 }

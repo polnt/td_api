@@ -7,7 +7,7 @@
   "author": "Pol Casabayo",
   "license": "MIT",
   "scripts": {
-    "initialize": "docker compose -f docker-compose.yml -f ./hack/docker-compose.init.yml up",
+    "initialize": "docker compose -f docker-compose.yml -f ./hack/docker-compose.init.yml up -d && docker compose exec api bash -c 'yarn nodemon'",
     "dev": "docker compose up -d && docker compose exec api bash -c 'yarn nodemon'",
     "build": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
