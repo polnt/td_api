@@ -22,32 +22,32 @@ describe('user integration tests', () => {
     jest.clearAllMocks();
   });
 
-  describe('create user', () => {
-    test('create user success', async () => {
-      const response = await request(app).post(`/api/signup`).send({
-        email: 'foo@foo.foo',
-        password: 'foo'
-      });
-      expect(response.status).toBe(201);
-      expect(response.body.message).toEqual('Account successfully created');
+  // describe('create user', () => {
+  test('create user success', async () => {
+    const response = await request(app).post(`/api/signup`).send({
+      email: 'foo@foo.foo',
+      password: 'foo'
     });
-    test('create user conflict', async () => {
-      const response = await request(app).post(`/api/signup`).send({
-        email: 'test@test.test',
-      });
-      expect(response.status).toBe(409);
-      expect(response.body.message).toEqual('Email already exists');
-    });
+    expect(response.status).toBe(201);
+    expect(response.body.message).toEqual('Account successfully created');
   });
+  test('create user conflict', async () => {
+    const response = await request(app).post(`/api/signup`).send({
+      email: 'test@test.test',
+    });
+    expect(response.status).toBe(409);
+    expect(response.body.message).toEqual('Email already exists');
+  });
+  // });
 
   test('authenticate', async () => {
-    const response = await request(app).get(`/api/signin`).send({ email: 'foo@foo.foo', password: 'foo' });
+    const response = await request(app).get(`/api/signin`).send({ email: 'test@test.test', password: 'test' });
     expect(response.status).toBe(200);
     expect(response.body.message).toEqual('Authentication success');
   });
 
   test('delete account', async () => {
-    const response = await request(app).delete(`/api/delete-account`).send({ email: 'foo@foo.foo', password: 'foo' });
+    const response = await request(app).delete(`/api/delete-account`).send({ email: 'bar@bar.bar', password: 'bar' });
     expect(response.status).toBe(200);
     expect(response.body.message).toEqual('Account unregistered');
   });
