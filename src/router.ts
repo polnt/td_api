@@ -49,7 +49,7 @@ export const router = async (): Promise<express.Router> => {
   // SIGN IN
   Router.post('/signup', asyncWrapper(userController.create));
   Router.post('/signin', asyncWrapper(userController.authenticate));
-  Router.post('/delete-account', asyncWrapper(userController.delete));
+  Router.delete('/delete-account', asyncWrapper(userController.delete));
 
   // AUTHENTICATION MIDDLEWARE
   Router.all(`/*`, [authMiddleware(mysql)]);

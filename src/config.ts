@@ -21,7 +21,7 @@ const appConfig: iAppConfig = {
     url: process.env.API_HOST || 'localhost',
     port: Number(process.env.API_PORT) || 3000,
     production: false,
-    secret: process.env.SECRET_KEY_JWT || '$3cr37',
+    secret: process.env.SECRET_KEY_JWT || 'secret',
     expiresIn: '24h',
     // https: {
     //   port: 8443,

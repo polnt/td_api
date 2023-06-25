@@ -19,7 +19,7 @@ export class MySQLClient {
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`);
     await connection.query(`use ${appConfig.mysql.database};`);
     const tables: string[] = await readdir(this.hydrationPath);
-    const thenables = tables.map(async (table) => {
+    const thenables = tables.sort().map(async (table) => {
       const tmp = await readFile(`${this.hydrationPath}/${table}`);
       await connection.query(tmp.toString('utf-8')).catch((err) => {
         throw err;

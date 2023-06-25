@@ -74,8 +74,12 @@ export class UserService {
   }
 
   public async create(payload: AuthPayload): Promise<{ status: number; message: string; data?: iUser; }> {
-    const { email } = payload;
+    const { email, password } = payload;
     await this.checkEmailDuplicate(email);
+    if (password) {
+      const hashPwd = await hash(payload.password, 10);
+      payload.password = hashPwd;
+    }
 
     const connection = await this.mysqlClient.getConnection();
     const createResult: any = await connection.query('INSERT INTO user SET ?', payload);

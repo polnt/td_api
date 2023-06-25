@@ -24,11 +24,11 @@ export class TodoService {
       const { password, ...data } = todos[0];
       return {
         status: 200,
-        message: 'todo found',
+        message: 'Todo found',
         data: data,
       };
     }
-    throw new NotFoundError('todo not found');
+    throw new NotFoundError('Todo not found');
   }
 
   public async getAll(userID: number): Promise<{
@@ -44,7 +44,7 @@ export class TodoService {
       return {
         status: 200,
         data: todos,
-        message: 'todos list successfully fetched',
+        message: 'Todo list successfully fetched',
       };
     }
     return { status: 200, data: [], message: 'No data' };
@@ -60,7 +60,7 @@ export class TodoService {
     await connection.query('UPDATE todo SET ? WHERE id = ?', [payload, todoID]);
     connection.release();
 
-    return { status: 201, message: 'todo successfully updated' };
+    return { status: 201, message: 'Todo successfully updated' };
   }
 
   public async create(userID: number, payload: TodoPayload): Promise<{ status: number; message: string; data?: any; }> {

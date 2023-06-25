@@ -22,13 +22,12 @@ async function main() {
   app.options('*', cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
-  // app.use(express.static(path.join(__dirname, 'public')));
 
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   app.use('/api', await router());
 
   app.get('/', (_, res) => {
-    res.send('<h1>EZ PZ LZ</h1>');
+    res.send('<a href="http://localhost:3000/api">API</a>');
   });
 
   app.listen(port, (err?: Error) => {

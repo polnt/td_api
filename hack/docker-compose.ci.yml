@@ -30,7 +30,7 @@ services:
         ]
       start_period: 2m
       interval: 10s
-      retries: 10
+      retries: 100
     restart: unless-stopped
 
   api_test:
