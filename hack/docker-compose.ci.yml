@@ -30,8 +30,8 @@ services:
       DB_USER: test
       DB_PASSWORD: test
       DB_NAME: td_api_test*$
-      DB_PORT: 3308
       SECRET_KEY_JWT: secret
+      DB_PORT: 3306
     tty: true
     command: bash
     ports:
