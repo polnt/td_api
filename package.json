@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "docker compose up -d && nodemon",
     "build": "tsc -p tsconfig.build.json",
+    "build:prod": "NODE_ENV=production && yarn build",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
     "check": "yarn lint && yarn test:unit && tsc -p tsconfig.build.json --noEmit",

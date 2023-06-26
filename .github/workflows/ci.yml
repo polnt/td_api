@@ -17,4 +17,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+      - name: Set environment
+        id: set_env
+        run: |
+          echo "environment_state=staging" >> "$GITHUB_ENV"
+      - name: Print environment
+        id: print_env
+        run: |
+          echo "${{ env.environment_state }}"
       - run: yarn test
