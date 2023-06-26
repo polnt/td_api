@@ -9,14 +9,13 @@
   "scripts": {
     "dev": "docker compose up -d && nodemon",
     "build": "tsc -p tsconfig.build.json",
-    "build:prod": "NODE_ENV=production && yarn build",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
-    "check": "yarn lint && yarn test:unit && tsc -p tsconfig.build.json --noEmit",
-    "test:all": "jest --coverage --config jest.config.json --no-cache --roots tests --runInBand --verbose",
+    "check": "yarn lint && yarn build --noEmit",
+    "test": "jest --coverage --config jest.config.json --no-cache --roots tests --runInBand --verbose",
     "test:unit": "jest --coverage --config jest.config.json --no-cache --roots tests/unit --runInBand --verbose",
     "test:int": "jest --coverage --config jest.config.json --no-cache --roots tests/integration --runInBand --verbose",
-    "test": "./hack/run_tests.sh",
+    "test:ci": "./cicd/run_tests.sh",
     "start": "node -r ./tsconfig-paths.js ./dist/index.js",
     "postinstall": "husky install"
   },

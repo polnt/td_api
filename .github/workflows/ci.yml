@@ -2,13 +2,12 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ develop ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ develop ]
 
 jobs:
-  test:
-
+  ci:
     runs-on: ubuntu-latest
     environment: staging
     env:
@@ -17,8 +16,9 @@ jobs:
     steps:
       - run: echo ${{ vars.NODE_ENV }}
       - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18.x'
-      - run: yarn test
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: '18.x'
+      - name: Tests
+        run: ./cicd/run_tests.sh
