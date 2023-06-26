@@ -1,6 +1,5 @@
 CREATE TABLE IF NOT EXISTS `todo` (
   `id` INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `label` TEXT DEFAULT NULL,
-  `user_id` INT NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `user`(`id`)
+  `user_id` INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

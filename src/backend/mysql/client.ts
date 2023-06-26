@@ -5,7 +5,8 @@ import { appConfig } from 'app/config';
 
 @injectable()
 export class MySQLClient {
-  private readonly hydrationPath: string = 'src/backend/mysql/tables';
+  private readonly tablesPath: string = 'src/backend/mysql/tables';
+  private readonly fkeysPath: string = 'src/backend/mysql/postinit/postinit.sql';
   private pool: mysql.Pool | undefined = undefined;
 
   private async checkConnection(): Promise<void> {
@@ -18,12 +19,16 @@ export class MySQLClient {
     const connection = await this.getConnection();
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`);
     await connection.query(`use ${appConfig.mysql.database};`);
-    const tables: string[] = await readdir(this.hydrationPath);
+    const tables: string[] = await readdir(this.tablesPath);
     const thenables = tables.sort().map(async (table) => {
-      const tmp = await readFile(`${this.hydrationPath}/${table}`);
-      await connection.query(tmp.toString('utf-8')).catch((err) => {
+      try {
+        const tmp = await readFile(`${this.tablesPath}/${table}`);
+        const fkeys: Buffer = await readFile(this.fkeysPath);
+        await connection.query(tmp.toString('utf-8'));
+        await connection.query(fkeys.toString('utf-8'));
+      } catch (err) {
         throw err;
-      });
+      }
     });
 
     await Promise.all(thenables);
@@ -36,13 +41,14 @@ export class MySQLClient {
       return;
     }
 
-    const { host, user, password } = appConfig.mysql;
+    const { host, user, password, port } = appConfig.mysql;
 
     this.pool = mysql.createPool({
       connectionLimit: 10,
       host,
       user,
       password,
+      port
     });
 
     await this.checkConnection();
