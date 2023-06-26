@@ -29,7 +29,7 @@ services:
       DB_HOST: mysqldb_test
       DB_USER: test
       DB_PASSWORD: test
-      DB_NAME: td_api_test
+      DB_NAME: td_api_testFAIL
       SECRET_KEY_JWT: secret
       DB_PORT: 3306
     tty: true
