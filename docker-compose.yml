@@ -15,6 +15,8 @@ services:
       - mysql_volume:/var/lib/mysql
     ports:
       - 3307:3306
+    networks:
+      td_api:
     restart: unless-stopped
 
   api:
@@ -29,10 +31,12 @@ services:
       DB_PORT: 3306
       NODE_ENV: ${NODE_ENV}
     tty: true
-    command: 
-      - bash -c |
-      - ./cicd/wait_for_it.sh --timeout=0 --host=mysqldb --port=3306 --strict -- \
-      - yarn start
+    command:
+      - bash 
+      - -c 
+      - |
+        ./cicd/wait_for_it.sh --timeout=0 --host=mysqldb --port=3306 --strict -- \
+        yarn start
     ports:
       - 3000:3000
     networks:

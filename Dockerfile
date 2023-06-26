@@ -6,6 +6,7 @@ WORKDIR /home
 
 RUN apk add bash \
     && chown -R node:node /home \
-    && yarn --immutable
+    && yarn --immutable \
+    && yarn build
 
 USER node
