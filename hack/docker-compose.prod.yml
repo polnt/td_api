@@ -33,6 +33,7 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
       DB_NAME: ${DB_NAME}
       DB_PORT: 3306
+      NODE_ENV: ${NODE_ENV}
     tty: true
     command: bash
     ports:

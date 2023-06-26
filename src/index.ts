@@ -35,6 +35,7 @@ async function main() {
       throw new Error('Erreur lors de la création du serveur');
     }
     console.log(`API OK, listening port: ${port}`);
+    console.log(process.env.NODE_ENV);
   });
 }
 main();
