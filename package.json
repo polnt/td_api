@@ -7,7 +7,7 @@
   "author": "Pol Casabayo",
   "license": "MIT",
   "scripts": {
-    "dev": "docker compose up -d && nodemon",
+    "dev": "docker compose up mysqldb -d && nodemon",
     "build": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",

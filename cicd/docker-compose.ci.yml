@@ -32,6 +32,7 @@ services:
       DB_NAME: td_api_test
       SECRET_KEY_JWT: secret
       DB_PORT: 3306
+      NODE_ENV: ${NODE_ENV}
     tty: true
     command: bash
     ports:

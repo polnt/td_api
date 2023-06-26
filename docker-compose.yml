@@ -1,5 +1,8 @@
 version: "3.8"
 
+networks:
+  td_api:
+
 volumes:
   mysql_volume:
 
@@ -12,4 +15,28 @@ services:
       - mysql_volume:/var/lib/mysql
     ports:
       - 3307:3306
+    restart: unless-stopped
+
+  api:
+    container_name: api
+    build: .
+    env_file: .env
+    environment:
+      DB_HOST: mysqldb
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: 3306
+      NODE_ENV: ${NODE_ENV}
+    tty: true
+    command: 
+      - bash -c |
+      - ./cicd/wait_for_it.sh --timeout=0 --host=mysqldb --port=3306 --strict -- \
+      - yarn start
+    ports:
+      - 3000:3000
+    networks:
+      - td_api
+    depends_on:
+      - mysqldb
     restart: unless-stopped
