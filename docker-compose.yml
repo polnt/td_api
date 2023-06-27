@@ -1,7 +1,7 @@
 version: "3.8"
 
 networks:
-  td_api:
+  bridge:
 
 volumes:
   mysql_volume:
@@ -16,7 +16,7 @@ services:
     ports:
       - 3307:3306
     networks:
-      td_api:
+      - bridge
     restart: unless-stopped
 
   api:
@@ -40,7 +40,7 @@ services:
     ports:
       - 3000:3000
     networks:
-      - td_api
+      - bridge
     depends_on:
       - mysqldb
     restart: unless-stopped
