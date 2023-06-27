@@ -16,7 +16,7 @@
     "test:unit": "jest --coverage --config jest.config.json --no-cache --roots tests/unit --runInBand --verbose",
     "test:int": "jest --coverage --config jest.config.json --no-cache --roots tests/integration --runInBand --verbose",
     "test:ci": "./cicd/run_tests.sh",
-    "start": "node -r ./tsconfig-paths.js ./dist/index.js",
+    "start": "node -r ts-node/register/transpile-only -r tsconfig-paths/register ./dist/index.js",
     "postinstall": "husky install"
   },
   "dependencies": {

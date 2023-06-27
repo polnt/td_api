@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2020",
+    "target": "es2021",
     "lib": [
-      "es2020"
+      "es2021"
     ],
     "module": "commonJS",
     "moduleResolution": "node",
@@ -36,8 +36,7 @@
   },
   "include": [
     "src/**/*",
-    "tests/**/*",
-    "tsconfig-paths.js"
+    "tests/**/*"
   ],
   "exclude": [
     "coverage",

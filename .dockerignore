@@ -20,3 +20,10 @@ node_modules/
 
 coverage
 dist
+
+.eslintignore
+.eslintrc.json
+nodemon.json
+.editorconfig
+.env
+.env.sample
