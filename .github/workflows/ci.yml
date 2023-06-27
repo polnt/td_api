@@ -27,8 +27,11 @@ jobs:
     needs: tests
     steps:
       - uses: actions/checkout@v3
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v5
+      - name: Create Pull Request on success
+        uses: desbravacloud/action-create-pull-requests@v1
         with:
-            branch: release
-            base: master
+          origin-branch: 'release'
+          target-branch: 'master'
+          custom-title: 'New release'
+          custom-body: 'Accept this PR to deploy'
+      
