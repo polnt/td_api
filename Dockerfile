@@ -9,4 +9,6 @@ RUN apk add bash \
     && yarn --immutable \
     && yarn build
 
+EXPOSE 3000
+
 USER node

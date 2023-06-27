@@ -21,6 +21,7 @@ services:
 
   api:
     container_name: api
+    image: polnt/td_api
     build: .
     env_file: .env
     environment:
