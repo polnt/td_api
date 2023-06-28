@@ -32,12 +32,16 @@ jobs:
   snyk:
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      security-events: write
     steps:
       - uses: actions/checkout@master
       - uses: snyk/actions/node@master
         name: Run Snyk to check for vulnerabilities
         env:
           SNYK_TOKEN: ${{secrets.SNYK_TOKEN}}
+        with:
+          command: monitor
 
   release:
     needs:
