@@ -49,10 +49,8 @@ jobs:
 
   release:
     if: ${{ contains(github.event.head_commit.messag, '**RELEASE**') }}
-    runs-on: ubuntu-latest
     needs:
     - tests
     - sonarcloud
     - snyk
-    steps:
-      - uses: ./.github/workflows/deploy.yml
+    uses: ./.github/workflows/deploy.yml
