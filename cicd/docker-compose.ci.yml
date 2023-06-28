@@ -34,11 +34,15 @@ services:
       DB_PORT: 3306
       NODE_ENV: ${NODE_ENV}
     tty: true
-    command: bash
+    command:
+      - bash 
+      - -c 
+      - |
+        ./cicd/wait_for_it.sh --timeout=0 --host=mysqldb_test --port=3306 --strict -- \
+        yarn test
     ports:
       - 3001:3000
     networks:
       - bridge_test
     depends_on:
       - mysqldb_test
-    restart: unless-stopped
