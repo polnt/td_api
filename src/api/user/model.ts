@@ -3,7 +3,7 @@ interface AuthPayload {
   password: string;
 }
 
-interface iUser {
+interface User {
   id?: number;
   username?: string;
   firstname?: string;
@@ -12,4 +12,4 @@ interface iUser {
   password?: string;
 }
 
-export { AuthPayload, iUser };
+export { AuthPayload, User };

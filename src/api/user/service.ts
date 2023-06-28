@@ -4,7 +4,7 @@ import { hash, compare } from 'bcrypt';
 
 import { appConfig } from 'app/config';
 import { ConflictError, LogicError, NotFoundError, UnauthorizedError } from 'app/utils';
-import { AuthPayload, iUser } from './model';
+import { AuthPayload, User } from './model';
 import { MySQLClient } from 'app/backend/mysql';
 import TYPES from 'app/inversion-of-control/types';
 
@@ -52,7 +52,7 @@ export class UserService {
     throw new UnauthorizedError('Wrong credentials');
   }
 
-  public async getOne(userID: number): Promise<{ status: number; message: string; data?: iUser; }> {
+  public async getOne(userID: number): Promise<{ status: number; message: string; data?: User; }> {
     if (isNaN(userID)) {
       throw new LogicError('Invalid userID (not a number)');
     }
@@ -73,7 +73,7 @@ export class UserService {
     throw new NotFoundError('User not found');
   }
 
-  public async create(payload: AuthPayload): Promise<{ status: number; message: string; data?: iUser; }> {
+  public async create(payload: AuthPayload): Promise<{ status: number; message: string; data?: User; }> {
     const { email, password } = payload;
     await this.checkEmailDuplicate(email);
     if (password) {
@@ -104,7 +104,7 @@ export class UserService {
     return { status: 200, message: 'Account unregistered' };
   }
 
-  public async update(userID: number, payload: iUser): Promise<{ status: number; message: string; }> {
+  public async update(userID: number, payload: User): Promise<{ status: number; message: string; }> {
     await this.getOne(userID);
 
     if (payload.password) {

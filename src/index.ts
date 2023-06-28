@@ -19,7 +19,7 @@ const swaggerDocument = YAML.parse(file);
 async function main() {
   app.use(cors());
 
-  app.options('*', cors());
+  // app.options('*', cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 

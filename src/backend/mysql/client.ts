@@ -20,15 +20,11 @@ export class MySQLClient {
     await connection.query(`CREATE DATABASE IF NOT EXISTS ${appConfig.mysql.database};`);
     await connection.query(`use ${appConfig.mysql.database};`);
     const tables: string[] = await readdir(this.tablesPath);
-    const thenables = tables.sort().map(async (table) => {
-      try {
-        const tmp = await readFile(`${this.tablesPath}/${table}`);
-        const fkeys: Buffer = await readFile(this.fkeysPath);
-        await connection.query(tmp.toString('utf-8'));
-        await connection.query(fkeys.toString('utf-8'));
-      } catch (err) {
-        throw err;
-      }
+    const thenables = tables.map(async (table) => {
+      const tmp = await readFile(`${this.tablesPath}/${table}`);
+      const fkeys: Buffer = await readFile(this.fkeysPath);
+      await connection.query(tmp.toString('utf-8'));
+      await connection.query(fkeys.toString('utf-8'));
     });
 
     await Promise.all(thenables);

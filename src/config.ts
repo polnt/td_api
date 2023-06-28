@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-interface iAppConfig {
+interface AppConfig {
   app: {
     url: string;
     port: number;
@@ -17,7 +17,7 @@ interface iAppConfig {
   };
 }
 
-const appConfig: iAppConfig = {
+const appConfig: AppConfig = {
   app: {
     url: process.env.API_HOST || 'localhost',
     port: Number(process.env.API_PORT) || 3000,
@@ -41,4 +41,4 @@ const appConfig: iAppConfig = {
   },
 };
 
-export { appConfig, iAppConfig };
+export { appConfig, AppConfig };
