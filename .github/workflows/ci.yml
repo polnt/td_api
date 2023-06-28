@@ -20,6 +20,7 @@ jobs:
         run: ./cicd/run_tests.sh
 
   sonarcloud:
+    needs: tests
     name: SonarCloud
     environment: staging
     runs-on: ubuntu-latest
