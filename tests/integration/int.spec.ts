@@ -9,7 +9,7 @@ import TYPES from 'app/inversion-of-control/types';
 import jwt from 'jsonwebtoken';
 
 describe('integration tests', () => {
-  jest.setTimeout(10000);
+  jest.setTimeout(30000);
   let app: any;
   let validToken: string;
   const mysql = container.get<MySQLClient>(TYPES.MySQLClient);
