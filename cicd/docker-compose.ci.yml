@@ -41,4 +41,3 @@ services:
       - bridge_test
     depends_on:
       - mysqldb_test
-    restart: unless-stopped

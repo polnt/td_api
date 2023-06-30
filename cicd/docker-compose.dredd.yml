@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  dredd:
+    container_name: dredd
+    image: apiaryio/dredd
+    command: dredd ./src/swaggerdoc/db.yml http://127.0.0.1:3000
+    volumes:
+      - ./src:/src
+    networks:
+      - bridge

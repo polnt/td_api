@@ -41,7 +41,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["auto-bind", "npm:4.0.0"],\
             ["bcrypt", "npm:5.1.0"],\
             ["cors", "npm:2.8.5"],\
-            ["dotenv", "npm:16.0.3"],\
+            ["dotenv", "npm:16.3.1"],\
             ["eslint", "npm:8.41.0"],\
             ["eslint-config-google", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:0.14.0"],\
             ["express", "npm:4.18.2"],\
@@ -3100,10 +3100,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["dotenv", [\
-        ["npm:16.0.3", {\
-          "packageLocation": "./.yarn/cache/dotenv-npm-16.0.3-4cc29121dc-afcf03f373.zip/node_modules/dotenv/",\
+        ["npm:16.3.1", {\
+          "packageLocation": "./.yarn/cache/dotenv-npm-16.3.1-e6d380a398-15d75e7279.zip/node_modules/dotenv/",\
           "packageDependencies": [\
-            ["dotenv", "npm:16.0.3"]\
+            ["dotenv", "npm:16.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -6675,7 +6675,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["auto-bind", "npm:4.0.0"],\
             ["bcrypt", "npm:5.1.0"],\
             ["cors", "npm:2.8.5"],\
-            ["dotenv", "npm:16.0.3"],\
+            ["dotenv", "npm:16.3.1"],\
             ["eslint", "npm:8.41.0"],\
             ["eslint-config-google", "virtual:c755268a6c939c117db3e27a2f08cdbd322d6f100fca537bfd875fa39ecd2627f04bd3deb66c609cea6dc59800bfaf15b55a0f8d8c3cabdafe2f22a8d03b4bd3#npm:0.14.0"],\
             ["express", "npm:4.18.2"],\

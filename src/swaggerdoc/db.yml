@@ -118,6 +118,7 @@ paths:
           required: true
           schema:
             type: string
+          example: 1
       responses:
         '200':
           description: User found
@@ -145,6 +146,13 @@ paths:
           required: true
           schema:
             type: string
+          example: ""
+        - name: userID
+          in: query
+          description: id of user you want to update
+          schema:
+            type: number
+          x-example: 1
       requestBody:
         description: Update an existent user in the store
         content:
@@ -175,6 +183,7 @@ paths:
           required: true
           schema:
             type: string
+          example: ""
       responses:
         '201':
           description: User successfully updated
@@ -193,6 +202,14 @@ paths:
           required: true
           schema:
             type: string
+          example: ""
+        - name: todoID
+          in: header
+          description: id of wanted todo
+          required: true
+          schema:
+            type: number
+          example: ""
       responses:
         '201':
           description: Todo successfully fetched
@@ -241,6 +258,7 @@ paths:
           required: true
           schema:
             type: string
+          example: ""
       requestBody:
         description: Update an existent todo in the store
         content:
@@ -271,6 +289,7 @@ paths:
           required: true
           schema:
             type: string
+          example: ""
       requestBody:
         description: delete an existent todo in the store
         content:
