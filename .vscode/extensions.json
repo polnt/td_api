@@ -3,5 +3,9 @@
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "ms-azuretools.vscode-docker",
+    "humao.rest-client",
+    "github.vscode-github-actions",
+    "ms-vsliveshare.vsliveshare",
+    "orta.vscode-jest"
   ]
 }
