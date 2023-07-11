@@ -8,6 +8,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "docker compose up mysqldb -d && nodemon",
+    "dev:stop": "docker compose down",
+    "dev:clean": "docker compose down --volumes",
     "build": "tsc -p tsconfig.build.json",
     "build:clean": "rm -rf dist && tsc -p tsconfig.build.json",
     "lint": "eslint \"{src,tests}/**/*.ts\"",
